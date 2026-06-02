@@ -1,0 +1,6 @@
+This page contains a list of all notes recorded. Each event is displayed with date and a text about action, plant and place.
+<br><br>
+
+A bin next to each note marks an opportunity to delete it.
+<br><br>
+

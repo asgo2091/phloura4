@@ -1,0 +1,6 @@
+Denna sida innehåller en lista över alla händelser som registrerats. Varje händelse visas med datum och en text med åtgärd, växt och plats.
+<br><br>
+
+En soptunna vid varje händelse markerar en möjlighet att radera den.
+<br><br>
+

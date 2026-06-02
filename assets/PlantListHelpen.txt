@@ -1,0 +1,3 @@
+This page contains a list of all plants that have been entered.
+<br><br>
+A pencil next to the plant points the way to a page where the note about the plant can be changed or deleted.

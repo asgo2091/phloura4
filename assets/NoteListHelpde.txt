@@ -1,0 +1,4 @@
+Diese Seite enthält eine Liste aller erfassten Notizen. Jedes Handlung wird mit Datum sowie einem Text zu Handlung, Pflanze und Ort angezeigt.
+<br><br>
+Ein Papierkorb neben jeder Notiz bietet die Möglichkeit, diese zu löschen.
+

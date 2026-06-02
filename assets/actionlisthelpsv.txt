@@ -1,0 +1,6 @@
+Här visas alla typer av åtgärder som du registrerat. 
+<br><br>
+Genom att registrera vilka typer av åtgärder(sådd, omplantreing osv.) som du använder får du standardiserade begrepp som gör det möjligt att söka och sortera i dina
+anteckningar.
+<br><br>
+Du kan sätta namn på dina åtgärder på förhand eller göra det löpande efter behov.

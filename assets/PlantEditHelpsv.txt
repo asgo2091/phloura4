@@ -1,0 +1,5 @@
+Denna sida ger möjlighet att lägga till eller ändra växter i listan.
+<br><br>
+Du behöver inte skriva in annat än växtens namn men du kan också ange det latinska namnet och någon personlig anteckning som du har nytta av.
+<br><br>
+<b>OBSERVERA!</b> Om en växt raderas kommer den att försvinna från hela systemet! Växten finns bara här och all användning av den hänvisar till denna lista.

@@ -1,0 +1,13 @@
+Hier legst du fest, wie eine Zusammenstellung deiner Notizen aussehen soll.
+<br><br>
+Zunächst entscheidest du, ob nach Pflanze, Ort oder Handlung sortiert werden soll.
+<br>
+Wenn du dich zum Beispiel für eine Pflanze entscheidest, kannst du anschließend auswählen, welche.
+<br>
+Du wählst dabei aus deiner eigenen Pflanzenliste.
+<br><br>
+Danach kannst du festlegen, welcher Zeitraum berücksichtigt werden soll.
+<br>
+Wenn du keinen Zeitraum festlegst, werden alle Notizen angezeigt, die du zu dieser Pflanze erfasst hast.
+<br><br>
+Wenn du auf „Weiter“ drückst, wird die Liste entsprechend deiner Auswahl angezeigt, und du kannst sie bei Bedarf ausdrucken.

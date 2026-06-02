@@ -1,0 +1,29 @@
+Diese App ist ein Tagebuch für deinen Anbau. Darin kannst du Notizen darüber machen, was du getan hast, welche Pflanzen du hast und wo du sie anbaust.
+<br><br>
+So kannst du in den kommenden Jahren zurückblicken und sehen, was du gemacht hast – welche Fehler du begangen hast und welche Versuche erfolgreich waren. Du kannst auch Notizen zum Wetter und zu anderen Umständen machen, die den Anbau beeinflusst haben.
+<br><br>
+Das Programm ist in vier Register bzw. Listen gegliedert, die zusammen ein vollständiges Bild dessen vermitteln, was passiert ist.
+<br><br>
+Eine Liste enthält die Pflanzen, die du anbaust oder ausprobieren möchtest.
+<br><br>
+Eine weitere Liste enthält die Anbauorte, z. B. Gewächshaus, Freiland, Frühbeet usw.
+<br><br>
+Die dritte Liste enthält die Handlungen, die du bei deinen Kulturen durchführst. Durch fest definierte Bezeichnungen für die Handlungen kannst du einfach suchen und sortieren, ohne Missverständnisse oder Unklarheiten zu riskieren.
+<br><br>
+Die vierte und wichtigste Liste ist diejenige, in der du festhältst, was tatsächlich passiert ist. Du gibst ein Datum ein und beschreibst das Ereignis, z. B. Frost, Trockenheit oder andere Einflüsse auf deine Pflanzen.
+Aber vor allem dokumentierst du hier Aussaat, Umpflanzen, Ernte und andere Handlungen, die du ausführst. Zu jedem Eintrag verknüpfst du die entsprechenden Pflanzen und Anbauorte aus den anderen Registern. So kannst du später nachvollziehen, was geschehen ist, was du wiederholen solltest und was du besser vermeiden solltest.
+<br><br>
+Viel Erfolg!
+<br><br>
+<b>ACHTUNG!</b> Das Programm speichert alle Daten lokal auf dem Smartphone. Bei einem Defekt des Geräts gehen alle Notizen verloren. Eine Backup-Funktion schützt vor Datenverlust.
+
+<hr> <strong>Datenschutzerklärung</strong> <p> Diese Datenschutzerklärung gilt für die mobile App Phloura (nachfolgend „Anwendung“), die von ASGO IT AB (nachfolgend „Dienstanbieter“) als kostenloser Dienst bereitgestellt wird. Die Anwendung wird „WIE BESEHEN“ zur Verfügung gestellt. </p> <br> <strong>Erhebung und Verwendung von Informationen</strong> <p> Die Anwendung erhebt keine Daten, wenn du sie herunterlädst oder nutzt. </p>
+
+<strong>Änderungen</strong>
+
+<p> Diese Datenschutzerklärung kann aus beliebigen Gründen gelegentlich aktualisiert werden. Der Dienstanbieter informiert über Änderungen, indem diese Seite mit der neuen Datenschutzerklärung aktualisiert wird. Es wird empfohlen, diese Datenschutzerklärung regelmäßig zu überprüfen, da die weitere Nutzung der Anwendung als Zustimmung zu allen Änderungen gilt. </p> <br> <p> Diese Datenschutzerklärung ist gültig ab dem 2025-04-01 </p> <br> <strong>Deine Zustimmung</strong> <p> Durch die Nutzung der Anwendung erklärst du dich mit der Verarbeitung deiner Informationen gemäß dieser Datenschutzerklärung einverstanden. </p> <br> <strong>Kontakt</strong> <p> Wenn du Fragen zum Datenschutz oder zu den Praktiken dieser Anwendung hast, wende dich bitte per E-Mail an den Dienstanbieter unter dev@asgoit.se </p> <hr> <br>
+
+<strong>Allgemeine Geschäftsbedingungen</strong>
+<br>
+
+<p> Diese Allgemeinen Geschäftsbedingungen gelten für die mobile App EventsandGuests (nachfolgend „Anwendung“), die von ASGO IT AB (nachfolgend „Dienstanbieter“) als Freemium-Dienst bereitgestellt wird. </p> <br> <p> Mit dem Herunterladen oder der Nutzung der Anwendung erklärst du dich automatisch mit diesen Bedingungen einverstanden. Es wird dringend empfohlen, diese Bedingungen vor der Nutzung sorgfältig zu lesen. Unbefugtes Kopieren, Ändern der Anwendung, von Teilen der Anwendung oder der Marken ist strengstens untersagt. Versuche, den Quellcode zu extrahieren, die Anwendung in andere Sprachen zu übersetzen oder abgeleitete Versionen zu erstellen, sind nicht erlaubt. Alle Marken-, Urheber-, Datenbank- und sonstigen Schutzrechte im Zusammenhang mit der Anwendung verbleiben beim Dienstanbieter. </p> <br> <p> Der Dienstanbieter ist bestrebt, die Anwendung so nützlich und effizient wie möglich zu gestalten und behält sich das Recht vor, die Anwendung jederzeit zu ändern oder Gebühren für Dienste zu erheben. Etwaige Kosten werden klar kommuniziert. </p> <br> <p> Die Anwendung speichert und verarbeitet personenbezogene Daten, die du zur Bereitstellung des Dienstes angibst. Du bist selbst für die Sicherheit deines Geräts und den Zugriff auf die Anwendung verantwortlich. Der Dienstanbieter rät dringend davon ab, dein Gerät zu jailbreaken oder zu rooten, da dies Sicherheitsrisiken birgt und dazu führen kann, dass die Anwendung nicht mehr korrekt funktioniert. </p> <div> <p> Bitte beachte, dass die Anwendung Dienste von Drittanbietern nutzt, die eigene Geschäftsbedingungen haben. </p> </div> <br> <p> Der Dienstanbieter bemüht sich um Aktualität und Korrektheit, übernimmt jedoch keine Haftung für direkte oder indirekte Verluste, die aus der Nutzung der Anwendung entstehen. </p> <br> <p> Der Dienstanbieter kann die Anwendung jederzeit aktualisieren oder die Bereitstellung ohne vorherige Ankündigung einstellen. In diesem Fall enden alle dir eingeräumten Rechte, und du musst die Nutzung der Anwendung beenden und sie ggf. von deinem Gerät löschen. </p> <br> <strong>Änderungen dieser Bedingungen</strong> <p> Diese Bedingungen können gelegentlich aktualisiert werden. Es wird empfohlen, diese Seite regelmäßig zu überprüfen. </p> <br> <p> Diese Allgemeinen Geschäftsbedingungen sind gültig ab dem 2025-04-01 </p> <br> <strong>Kontakt</strong> <p> Wenn du Fragen oder Anregungen zu diesen Bedingungen hast, wende dich bitte an den Dienstanbieter unter dev@asgoit.se </p>

@@ -1,0 +1,18 @@
+Den här appen/programmet fungerar som en dagbok för dina odlingar. I den kan du göra anteckningar om vad du gjort, vilka växter du har och vilka platser du odlar på.
+<br>
+På så sätt kan du gå tillbaka till föregående år och se vad du gjort, misstag som lyckade försök. 
+Du kan också göra anteckningar om väder och andra omständigheter som påverkat.
+<br><br>
+Programmet är uppbyggt med fyra register, eller listor, som tillsammans ger en bild av vad som hänt.
+<br><br>
+En lista skall innehålla de växter som du odlar eller tänker försöka dig på.
+<br><br>
+En lista skall innehålla de platser som du använder, till exempel växthus, friland, drivbänk och så vidare.
+<br><br>
+Den tredje listan skall innehålla de åtgärder som du gör i dina odlingar. Genom att ha en lista med bestämda beteckningar på åtgärderna kan du söka och sortera på ett enkelt sätt utan att riskera otydlighet eller sammanblandningar.
+<br><br><br>
+Den fjärde listan är den viktigaste, den där du antecknar vad som hänt. Du skriver in datum och därefter en beskrivning av händelsen; till exempel frost, torka och annat som påverkat dina odlingar. Men främst beskriver du sådd, omplanteringar, skörd och annat som du gör. Till en sådan anteckning kopplar du plats och växter ur de andra registren. Här kan du senare gå tillbaka för att se vad som hänt, vad som du skall göra igen och vad som är bäst att undvika.
+<br><br><br>
+Lycka till!
+<hr>
+<b>OBSERVERA!</b> Programmet sparar alla data i telefonen/plattan. Om den på ett eller annat sätt slutar fungera blir dina data oåtkomliga. Med säkerhetskopia av telefonen/plattan undviker du detta problem.

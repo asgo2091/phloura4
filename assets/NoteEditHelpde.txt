@@ -1,0 +1,7 @@
+Diese Seite dient zum Erfassen und Bearbeiten von Ereignissen.
+<br><br>
+Das Datum wird über ein Auswahlrad festgelegt, während der Text wie gewohnt eingegeben wird. Der Text kann beliebig lang sein, sollte jedoch mit Blick auf die Darstellung möglichst kurz gehalten werden.
+<br>
+Ein Datum muss angegeben werden, andernfalls wird der Eintrag nicht gespeichert. Der Grund dafür ist, dass alle Notizen nach Datum sortiert und verwendet werden.
+<br><br>
+Du kannst beliebig viele Notizen für dasselbe Datum erfassen.

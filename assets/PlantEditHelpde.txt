@@ -1,0 +1,5 @@
+Auf dieser Seite kannst du Pflanzen zur Liste hinzufügen oder bestehende bearbeiten.
+<br><br>
+Du musst lediglich den Namen der Pflanze eingeben. Optional kannst du auch den lateinischen Namen sowie persönliche Notizen eintragen, die du für sinnvoll hältst.
+<br><br>
+<b>HINWEIS!</b> Wenn eine Pflanze gelöscht wird, verschwindet sie aus dem gesamten System! Der Pflanzenname wird nur hier verwaltet, und jede Verwendung dieses Namens bezieht sich auf diese Liste.

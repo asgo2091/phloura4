@@ -1,0 +1,9 @@
+Hier werden alle von Ihnen angelegten Handlungen angezeigt.
+
+<br><br>
+
+Durch das Anlegen von Handlungstypen (z. B. Säen, Umpflanzen) entstehen einheitliche Begriffe, mit denen sich Ihre Einträge durchsuchen und sortieren lassen.
+
+<br><br>
+
+Handlungen können im Voraus benannt oder bei Bedarf fortlaufend hinzugefügt werden.
