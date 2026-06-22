@@ -1,0 +1,4 @@
+By naming your actions (sowing, harvesting, etc.), you get a way to always record what you have done in the same way. 
+This way, you create the possibility to search and sort your notes at a later time using terms that you have determined yourself.
+<br><br>
+<b>NOTE!</b> If an action name is deleted, it will disappear from the entire system! The action is only found here and all use of that refers to this list.

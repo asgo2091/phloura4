@@ -1,0 +1,3 @@
+Diese Seite enthält eine Liste aller erfassten Pflanzen.
+<br><br>
+Ein Stiftsymbol neben der Pflanze führt zu einer Seite, auf der die Notiz zur Pflanze bearbeitet oder gelöscht werden kann.

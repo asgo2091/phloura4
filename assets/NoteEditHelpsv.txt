@@ -1,0 +1,9 @@
+Denna sida används för att registrera och ändra händelser.
+<br><br>
+Datum hämtas från en urtavla medan texten skrivs in på vanligt sätt. Texten kan vara hur lång som helst men med tanke på hur den skall visas bör den hållas rätt kort.
+<br>
+Datum måste anges, annars kommer noteringen ine att sparas. Orsaken är att alla noteringar sorteras och används efter datum.
+<br><br>
+Du kan göra hur många noteringar som helst på samma datum.
+<br><br>
+

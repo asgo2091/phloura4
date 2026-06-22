@@ -1,0 +1,10 @@
+Here you decide what you want a compilation of your notes to look like.
+<br><br> 
+To begin with, you decide whether you want to be sorted by plant, place or action. 
+For example, if you decide on a plant, you can then choose which one. 
+You choose from your own list of plants.
+<br>
+You can then choose which time should be included. 
+If you do not set a time, all notes you have made for that plant will be displayed.
+<br><br>
+When you press continue, a list will be displayed as you have decided and you can print it if you wish. 

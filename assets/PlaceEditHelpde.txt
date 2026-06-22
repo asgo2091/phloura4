@@ -1,0 +1,5 @@
+Auf dieser Seite kannst du einen Ort hinzufügen oder bearbeiten.
+<br><br>
+Wenn du die Beschreibung oder den Namen eines Ortes änderst, werden alle Stellen in der App aktualisiert, an denen dieser Name verwendet wird.
+<br><br>
+<b>HINWEIS!</b> Wenn ein Ort gelöscht wird, verschwindet er aus dem gesamten System! Der Ortsname wird nur hier verwaltet, und jede Verwendung dieses Namens bezieht sich auf diese Liste.

@@ -1,0 +1,6 @@
+All types of actions that you have registered are displayed here. 
+<br><br>
+By registering the types of actions (sowing, replanting, etc.) that you use, you get standardized concepts that make it possible to search and sort in your
+notes.
+<br><br>
+You can name your actions in advance or do it continuously as needed.

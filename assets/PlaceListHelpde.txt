@@ -1,0 +1,3 @@
+Diese Seite enthält eine Liste aller erfassten Orte.
+<br><br>
+Ein Stiftsymbol neben dem Ort führt zu einer Seite, auf der die Notiz zum Ort bearbeitet oder gelöscht werden kann.

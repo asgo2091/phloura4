@@ -1,0 +1,4 @@
+Genom att sätta namn på dina åtgärder (sådd, skörd, osv.) får du ett sätt att alltid anteckna vad du gjort på samma sätt. 
+På så sätt skapar du möjlighet att vid ett senare tillfälle söka och sortera dina anteckningar med begrepp som du själv bestämt.
+<br><br>
+<b>OBSERVERA!</b> Om en åtgärd raderas kommer den att försvinna från hela systemet! Åtgärden finns bara här och all användning av den hänvisar till denna lista.

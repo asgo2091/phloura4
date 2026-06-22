@@ -1,0 +1,5 @@
+Här visas en sammanställning av anteckningar så som du bestämt.
+<br><br>
+Listan försvinner så snart du lämnar sidan, den sparas inte men kan sammanställas igen om du så vill.
+<br>
+Du kan också skriva ut listan

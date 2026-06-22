@@ -1,0 +1,5 @@
+This page allows you to add or edit plants to the list.
+<br><br>
+You don't need to enter anything other than the plant's name, but you can also enter the latin name and any personal notes that you find useful.
+<br><br>
+<b>NOTE!</b> If a plant is deleted, it will disappear from the entire system! The plant name is only found here and all use of that name refers to this list.

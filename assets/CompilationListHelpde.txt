@@ -1,0 +1,5 @@
+Hier siehst du eine Zusammenstellung der Notizen, so wie du sie zuvor festgelegt hast.
+<br><br>
+Die Liste verschwindet, sobald du die Seite verlässt. Sie wird nicht gespeichert, kann aber jederzeit erneut zusammengestellt werden.
+<br>
+Du kannst die Liste auch ausdrucken.

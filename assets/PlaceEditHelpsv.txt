@@ -1,0 +1,5 @@
+På denna sida kan du lägga till en plats eller ändra den. 
+<br><br>
+Om du ändrar beskrivningen eller namnet på en plats kommer alla ställen i appen där du använt namnet att ändras. 
+<br><br>
+<b>OBSERVERA!</b> Om en plats raderas kommer den att försvinna från hela systemet! Platsen finns bara här och all användning av den hänvisar till denna lista.

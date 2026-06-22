@@ -1,0 +1,5 @@
+On this page you can add a location or edit one. 
+<br><br>
+If you change the description or name of a location, all places in the app where you have used the name will be changed.
+<br><br>
+<b>NOTE!</b> If a place is deleted, it will disappear from the entire system! The place name is only found here and all use of that name refers to this list.

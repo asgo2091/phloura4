@@ -1,0 +1,9 @@
+Här bestämmer du vad du vill en sammanställning av dina anteckningar skall se ut.
+<br><br> Till att börja med bestämmer du om du vill ha sorterat efter växt, plats eller åtgärd. 
+Om du till exempel beslutar dig för en växt får du därefter välja vilken. 
+Du får då välja från din egen lista av växter.
+<br>
+Därefter kan du välja vilken tid som som skall innefattas. 
+Sätter du ingen tid visas alla anteckningar som du gjort för den växten.
+<br><br>
+När du trycker på fortsätt visas en lista så som du bestämt och du kan skriva ut den om du vill.

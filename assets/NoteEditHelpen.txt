@@ -1,0 +1,8 @@
+This page is used to register and modify events.
+<br><br>
+Dates are retrieved from a dial while the text is entered in the usual way. The text can be any length, but considering how it will be displayed, it should be kept fairly short.
+<br>
+A date must be entered, otherwise the note will not be saved. The reason is that all notes are sorted and used by date.
+<br><br>
+You can make as many notes as you want on the same date.
+<br><br>

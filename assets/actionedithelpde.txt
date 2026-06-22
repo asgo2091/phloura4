@@ -1,0 +1,7 @@
+Durch das Benennen von Handlungen (z. B. Säen, Ernten) dokumentieren Sie Tätigkeiten einheitlich.
+So lassen sich Einträge später einfach suchen und sortieren.
+<br><br>
+<b>HINWEIS</b>
+<br>
+Wird eine Handlung gelöscht, wird sie im gesamten System entfernt.
+Handlungen werden zentral verwaltet und gelten für alle zugehörigen Einträge.
