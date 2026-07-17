@@ -11,3 +11,5 @@ class CouldNotDeleteUser implements Exception {}
 class CouldNotFindUser implements Exception {}
 
 class UserAlreadyExists implements Exception {}
+
+class NoProductExists implements Exception {}

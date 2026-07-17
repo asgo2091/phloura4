@@ -1,44 +1,43 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phloura/constants.dart';
-import 'package:phloura/definitions/globals.dart' as globals;
-import 'package:flutter/material.dart';
 import 'package:phloura/crud_service.dart';
+import 'package:phloura/l10n/app_localizations.dart';
 import 'package:phloura/main.dart';
 import 'package:phloura/print.dart';
-import 'package:phloura/view/compilation_design.dart';
-import 'package:phloura/view/note_list.dart';
-import 'package:phloura/view/place_list.dart';
-import 'package:phloura/view/vaxt_view.dart';
-import 'package:phloura/view/actionlist.dart';
-import 'package:phloura/view/textscreen.dart';
-import 'package:phloura/l10n/app_localizations.dart';
+import 'package:phloura/screens/compilation_design.dart';
+import 'package:phloura/screens/note_list.dart';
+import 'package:phloura/screens/place_list.dart';
+import 'package:phloura/screens/vaxt_list.dart';
+import 'package:phloura/screens/actionview.dart';
+import 'package:phloura/screens/textscreen.dart';
+import 'package:phloura/definitions/globals.dart' as globals;
 import 'package:url_launcher/url_launcher.dart';
 
-class Plantlist extends StatefulWidget {
-  const Plantlist({super.key});
+class Actionlist extends StatefulWidget {
+  const Actionlist({super.key});
 
   @override
-  State<Plantlist> createState() => _PlantlistState();
+  State<Actionlist> createState() => _ActionlistState();
 }
 
-class _PlantlistState extends State<Plantlist> {
+class _ActionlistState extends State<Actionlist> {
   final CrudService _crudservice = CrudService();
 
   @override
   initState() {
-    _refreshPlantList();
+    _refreshTaskList();
     super.initState();
   }
 
   bool _isLoading = true;
-
-  String outString = '';
+  String outStringa = '';
   String _fileContents = '';
-  List<Map<String, dynamic>> plantlist = [];
+  List<Map<String, dynamic>> actionlist = [];
 
   Future<void> loadAsset() async {
     String fileText = await rootBundle.loadString(
-      AppLocalizations.of(context)!.plantlisthelpfile,
+      AppLocalizations.of(context)!.actionlisthelpfile,
     );
 
     setState(() {
@@ -54,10 +53,10 @@ class _PlantlistState extends State<Plantlist> {
     }
   }
 
-  Future<void> _refreshPlantList() async {
-    final data = await _crudservice.getAllVaxts();
+  Future<void> _refreshTaskList() async {
+    final data = await _crudservice.getAllActions();
     setState(() {
-      plantlist = data;
+      actionlist = data;
       _isLoading = false;
     });
   }
@@ -71,7 +70,7 @@ class _PlantlistState extends State<Plantlist> {
           padding: const EdgeInsets.all(8),
           child: Image.asset('assets/phloura_logo.jpg'),
         ),
-        title: Text(AppLocalizations.of(context)!.plantlistappbartitle),
+        title: Text(AppLocalizations.of(context)!.actionlistappbartitle),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.question_mark),
@@ -86,7 +85,7 @@ class _PlantlistState extends State<Plantlist> {
                         textOut: _fileContents,
                         heading: AppLocalizations.of(
                           context,
-                        )!.plantlisthelpappbartitle,
+                        )!.actionlisthelpappbartitle,
                       ),
                     ),
                   );
@@ -100,19 +99,14 @@ class _PlantlistState extends State<Plantlist> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              itemCount: plantlist.length,
+              itemCount: actionlist.length,
               itemBuilder: (context, index) => Card(
                 color: const Color.fromARGB(255, 255, 254, 253),
-                margin: const EdgeInsets.all(1),
+                margin: const EdgeInsets.all(5),
                 child: ListTile(
                   title: Text(
-                    plantlist[index][vaxtNameColumn] /* +
-                        '  ' +
-                        plantlist[index][vaxtLatinColumn] */,
+                    actionlist[index][actionTextColumn],
                     textAlign: TextAlign.center,
-                  ),
-                  subtitle: Column(
-                    children: [Text(plantlist[index][vaxtTextColumn])],
                   ),
                   trailing: SizedBox(
                     width: 100,
@@ -121,12 +115,13 @@ class _PlantlistState extends State<Plantlist> {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () {
-                            globals.vaxtId = plantlist[index][vaxtIdColumn];
-                            globals.origin = 'PlantList';
+                            globals.actionId =
+                                actionlist[index][actionIdColumn];
+                            globals.origin = 'ActionList';
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const PlantView(),
+                                builder: (context) => const ActionView(),
                               ),
                             );
                           },
@@ -142,13 +137,12 @@ class _PlantlistState extends State<Plantlist> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              globals.vaxtId = 0;
-              globals.vaxtId = 0;
-              globals.origin = "PlantList";
+              globals.actionId = 0;
+              globals.origin = "TaskList";
 
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PlantView()),
+                MaterialPageRoute(builder: (context) => const ActionView()),
               );
             },
             heroTag: 1,
@@ -157,14 +151,17 @@ class _PlantlistState extends State<Plantlist> {
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
-              globals.origin = 'PlantList';
+              globals.origin = 'Tasklist';
+
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Print(
-                    outlist: plantlist,
+                    outlist: actionlist,
                     dateSpan: '',
-                    content: AppLocalizations.of(context)!.plantlistappbartitle,
+                    content: AppLocalizations.of(
+                      context,
+                    )!.actionlistappbartitle,
                   ),
                 ),
               );

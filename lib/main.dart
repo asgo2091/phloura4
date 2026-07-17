@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phloura/l10n/app_localizations.dart';
-//import 'package:phloura/shop.dart';
-import 'package:phloura/view/note_list.dart';
-import 'package:phloura/view/textscreen.dart';
+import 'package:phloura/screens/note_list.dart';
+import 'package:phloura/screens/shop.dart';
+import 'package:phloura/screens/textscreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
@@ -60,6 +60,7 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
+    //print(globals.pro);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -152,12 +153,12 @@ class _HomepageState extends State<Homepage> {
                 ),
                 child: Text(AppLocalizations.of(context)!.appdesignbutton),
               ),
-              /*               TextButton(
+              TextButton(
                 onPressed: () {
-  /*                 Navigator.push(
+                  Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ShopScreen()),
-                  ); */
+                    MaterialPageRoute(builder: (context) => ShopScreen()),
+                  );
                 },
                 style: ButtonStyle(
                   shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
@@ -167,8 +168,8 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                 ),
-                //child: Text(AppLocalizations.of(context)!.shopbutton),
-              ), */
+                child: Text(AppLocalizations.of(context)!.shopbutton),
+              ),
             ],
           ),
         ),

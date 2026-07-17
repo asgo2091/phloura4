@@ -7,6 +7,9 @@ environment:
   sdk: ^3.12.2
 
 dependencies:
+  cloud_firestore: ^6.6.0
+  cloud_functions: ^6.3.3
+  firebase_auth: ^6.5.4
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.14.4
@@ -14,6 +17,9 @@ dependencies:
     sdk: flutter
   flutter_secure_storage: ^10.3.1
   flutter_widget_from_html: ^0.17.2
+  in_app_purchase: ^3.3.0
+  in_app_purchase_android: ^0.5.1
+  in_app_purchase_storekit: ^0.4.10+1
   intl: ^0.20.2
   path: ^1.9.1
   path_provider: ^2.1.6

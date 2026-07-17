@@ -5,40 +5,40 @@ import 'package:flutter/material.dart';
 import 'package:phloura/crud_service.dart';
 import 'package:phloura/main.dart';
 import 'package:phloura/print.dart';
-import 'package:phloura/view/compilation_design.dart';
-import 'package:phloura/view/note_list.dart';
-import 'package:phloura/view/place_view.dart';
-import 'package:phloura/view/vaxt_list.dart';
-import 'package:phloura/view/actionlist.dart';
-import 'package:phloura/view/textscreen.dart';
+import 'package:phloura/screens/compilation_design.dart';
+import 'package:phloura/screens/note_list.dart';
+import 'package:phloura/screens/place_list.dart';
+import 'package:phloura/screens/vaxt_view.dart';
+import 'package:phloura/screens/actionlist.dart';
+import 'package:phloura/screens/textscreen.dart';
 import 'package:phloura/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Placelist extends StatefulWidget {
-  const Placelist({super.key});
+class Plantlist extends StatefulWidget {
+  const Plantlist({super.key});
 
   @override
-  State<Placelist> createState() => _PlaceState();
+  State<Plantlist> createState() => _PlantlistState();
 }
 
-class _PlaceState extends State<Placelist> {
+class _PlantlistState extends State<Plantlist> {
   final CrudService _crudservice = CrudService();
 
   @override
   initState() {
-    _refreshPlaceList();
+    _refreshPlantList();
     super.initState();
   }
 
   bool _isLoading = true;
 
-  String outStringp = '';
+  String outString = '';
   String _fileContents = '';
-  List<Map<String, dynamic>> placelist = [];
+  List<Map<String, dynamic>> plantlist = [];
 
   Future<void> loadAsset() async {
     String fileText = await rootBundle.loadString(
-      AppLocalizations.of(context)!.placelisthelpfile,
+      AppLocalizations.of(context)!.plantlisthelpfile,
     );
 
     setState(() {
@@ -54,10 +54,10 @@ class _PlaceState extends State<Placelist> {
     }
   }
 
-  Future<void> _refreshPlaceList() async {
-    final data = await _crudservice.getAllPlaces();
+  Future<void> _refreshPlantList() async {
+    final data = await _crudservice.getAllVaxts();
     setState(() {
-      placelist = data;
+      plantlist = data;
       _isLoading = false;
     });
   }
@@ -71,7 +71,7 @@ class _PlaceState extends State<Placelist> {
           padding: const EdgeInsets.all(8),
           child: Image.asset('assets/phloura_logo.jpg'),
         ),
-        title: Text(AppLocalizations.of(context)!.placelistappbartitle),
+        title: Text(AppLocalizations.of(context)!.plantlistappbartitle),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.question_mark),
@@ -86,7 +86,7 @@ class _PlaceState extends State<Placelist> {
                         textOut: _fileContents,
                         heading: AppLocalizations.of(
                           context,
-                        )!.placelisthelpappbartitle,
+                        )!.plantlisthelpappbartitle,
                       ),
                     ),
                   );
@@ -100,14 +100,19 @@ class _PlaceState extends State<Placelist> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              itemCount: placelist.length,
+              itemCount: plantlist.length,
               itemBuilder: (context, index) => Card(
                 color: const Color.fromARGB(255, 255, 254, 253),
-                margin: const EdgeInsets.all(5),
+                margin: const EdgeInsets.all(1),
                 child: ListTile(
                   title: Text(
-                    placelist[index][placeNameColumn],
+                    plantlist[index][vaxtNameColumn] /* +
+                        '  ' +
+                        plantlist[index][vaxtLatinColumn] */,
                     textAlign: TextAlign.center,
+                  ),
+                  subtitle: Column(
+                    children: [Text(plantlist[index][vaxtTextColumn])],
                   ),
                   trailing: SizedBox(
                     width: 100,
@@ -116,12 +121,12 @@ class _PlaceState extends State<Placelist> {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () {
-                            globals.placeId = placelist[index][placeIdColumn];
-                            globals.origin = 'PlaceList';
+                            globals.vaxtId = plantlist[index][vaxtIdColumn];
+                            globals.origin = 'PlantList';
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const PlaceView(),
+                                builder: (context) => const PlantView(),
                               ),
                             );
                           },
@@ -137,11 +142,13 @@ class _PlaceState extends State<Placelist> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              globals.placeId = 0;
-              globals.origin = "PlaceList";
+              globals.vaxtId = 0;
+              globals.vaxtId = 0;
+              globals.origin = "PlantList";
+
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const PlaceView()),
+                MaterialPageRoute(builder: (context) => const PlantView()),
               );
             },
             heroTag: 1,
@@ -150,14 +157,14 @@ class _PlaceState extends State<Placelist> {
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
-              globals.origin = 'Placelist';
+              globals.origin = 'PlantList';
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Print(
-                    outlist: placelist,
+                    outlist: plantlist,
                     dateSpan: '',
-                    content: AppLocalizations.of(context)!.placelistappbartitle,
+                    content: AppLocalizations.of(context)!.plantlistappbartitle,
                   ),
                 ),
               );

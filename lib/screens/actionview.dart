@@ -4,8 +4,8 @@ import 'package:phloura/constants.dart';
 import 'package:phloura/crud_service.dart';
 import 'package:phloura/l10n/app_localizations.dart';
 import 'package:phloura/dialog/delete_dialog.dart';
-import 'package:phloura/view/actionlist.dart';
-import 'package:phloura/view/textscreen.dart';
+import 'package:phloura/screens/actionlist.dart';
+import 'package:phloura/screens/textscreen.dart';
 import 'package:phloura/definitions/globals.dart' as globals;
 
 class ActionView extends StatefulWidget {
@@ -72,8 +72,7 @@ class _ActionViewState extends State<ActionView> {
                         textOut: _fileContents,
                         heading: AppLocalizations.of(
                           context,
-                        )!
-                            .actionedithelpappbartitle,
+                        )!.actionedithelpappbartitle,
                       ),
                     ),
                   );

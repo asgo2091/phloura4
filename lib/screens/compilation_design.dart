@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:phloura/constants.dart';
 import 'package:phloura/crud_service.dart';
-import 'package:phloura/view/compilationlist.dart';
-import 'package:phloura/view/note_list.dart';
-import 'package:phloura/view/textscreen.dart';
+import 'package:phloura/screens/compilationlist.dart';
+import 'package:phloura/screens/note_list.dart';
+import 'package:phloura/screens/textscreen.dart';
 import 'package:phloura/l10n/app_localizations.dart';
 
 enum SortKey { plant, place, action }
@@ -73,7 +73,9 @@ class RadioDropdownTile extends StatelessWidget {
               ? DropdownButton<String>(
                   hint: Text(hintText),
                   icon: const Visibility(
-                      visible: false, child: Icon(Icons.arrow_downward)),
+                    visible: false,
+                    child: Icon(Icons.arrow_downward),
+                  ),
                   onChanged: (value) {
                     if (value != null) onDropdownChanged(value);
                   },
@@ -121,33 +123,39 @@ class _CompilationDesignState extends State<CompilationDesign> {
 
   Future<void> loadActionList() async {
     _crud.getAllActions().then((listMap) {
-      listMap.map((map) {
-        return getActionDropDownWidget(map);
-      }).forEach((dropDownItem) {
-        actionList.add(dropDownItem);
-      });
+      listMap
+          .map((map) {
+            return getActionDropDownWidget(map);
+          })
+          .forEach((dropDownItem) {
+            actionList.add(dropDownItem);
+          });
       setState(() {});
     });
   }
 
   Future<void> loadVaxtList() async {
     _crud.getAllVaxts().then((vaxtlistMap) {
-      vaxtlistMap.map((map) {
-        return getVaxtDropDownWidget(map);
-      }).forEach((dropDownItem) {
-        vaxtList.add(dropDownItem);
-      });
+      vaxtlistMap
+          .map((map) {
+            return getVaxtDropDownWidget(map);
+          })
+          .forEach((dropDownItem) {
+            vaxtList.add(dropDownItem);
+          });
       setState(() {});
     });
   }
 
   Future<void> loadPlaceList() async {
     _crud.getAllPlaces().then((placelistMap) {
-      placelistMap.map((map) {
-        return getPlaceDropDownWidget(map);
-      }).forEach((dropDownItem) {
-        placeList.add(dropDownItem);
-      });
+      placelistMap
+          .map((map) {
+            return getPlaceDropDownWidget(map);
+          })
+          .forEach((dropDownItem) {
+            placeList.add(dropDownItem);
+          });
       setState(() {});
     });
   }
@@ -245,8 +253,9 @@ class _CompilationDesignState extends State<CompilationDesign> {
                     MaterialPageRoute(
                       builder: (context) => TextScreen(
                         textOut: _fileContents,
-                        heading: AppLocalizations.of(context)!
-                            .compilationdesignhelpappbartitle,
+                        heading: AppLocalizations.of(
+                          context,
+                        )!.compilationdesignhelpappbartitle,
                       ),
                     ),
                   );
@@ -258,12 +267,14 @@ class _CompilationDesignState extends State<CompilationDesign> {
       ),
       body: SafeArea(
         child: RadioGroup(
-          selectedValue:
-              _choosenKey == null ? null : SortKey.values[_choosenKey! - 1],
+          selectedValue: _choosenKey == null
+              ? null
+              : SortKey.values[_choosenKey! - 1],
           onValueChanged: (value) {
             setState(() {
-              _choosenKey =
-                  value == null ? null : SortKey.values.indexOf(value) + 1;
+              _choosenKey = value == null
+                  ? null
+                  : SortKey.values.indexOf(value) + 1;
             });
           },
           child: Column(
@@ -305,8 +316,9 @@ class _CompilationDesignState extends State<CompilationDesign> {
                         ),
                       ),
                     ),
-                    child: Text(AppLocalizations.of(context)!
-                        .compilationdesignfromdate),
+                    child: Text(
+                      AppLocalizations.of(context)!.compilationdesignfromdate,
+                    ),
                   ),
                   TextButton(
                     onPressed: _getToDate,
@@ -319,7 +331,8 @@ class _CompilationDesignState extends State<CompilationDesign> {
                       ),
                     ),
                     child: Text(
-                        AppLocalizations.of(context)!.compilationdesigntodate),
+                      AppLocalizations.of(context)!.compilationdesigntodate,
+                    ),
                   ),
                 ],
               ),
@@ -359,7 +372,8 @@ class _CompilationDesignState extends State<CompilationDesign> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const Notelist()),
+                          builder: (context) => const Notelist(),
+                        ),
                       );
                     },
                     style: ButtonStyle(

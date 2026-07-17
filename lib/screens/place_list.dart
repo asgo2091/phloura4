@@ -1,43 +1,44 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:phloura/constants.dart';
+import 'package:phloura/definitions/globals.dart' as globals;
+import 'package:flutter/material.dart';
 import 'package:phloura/crud_service.dart';
-import 'package:phloura/l10n/app_localizations.dart';
 import 'package:phloura/main.dart';
 import 'package:phloura/print.dart';
-import 'package:phloura/view/compilation_design.dart';
-import 'package:phloura/view/note_list.dart';
-import 'package:phloura/view/place_list.dart';
-import 'package:phloura/view/vaxt_list.dart';
-import 'package:phloura/view/actionview.dart';
-import 'package:phloura/view/textscreen.dart';
-import 'package:phloura/definitions/globals.dart' as globals;
+import 'package:phloura/screens/compilation_design.dart';
+import 'package:phloura/screens/note_list.dart';
+import 'package:phloura/screens/place_view.dart';
+import 'package:phloura/screens/vaxt_list.dart';
+import 'package:phloura/screens/actionlist.dart';
+import 'package:phloura/screens/textscreen.dart';
+import 'package:phloura/l10n/app_localizations.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Actionlist extends StatefulWidget {
-  const Actionlist({super.key});
+class Placelist extends StatefulWidget {
+  const Placelist({super.key});
 
   @override
-  State<Actionlist> createState() => _ActionlistState();
+  State<Placelist> createState() => _PlaceState();
 }
 
-class _ActionlistState extends State<Actionlist> {
+class _PlaceState extends State<Placelist> {
   final CrudService _crudservice = CrudService();
 
   @override
   initState() {
-    _refreshTaskList();
+    _refreshPlaceList();
     super.initState();
   }
 
   bool _isLoading = true;
-  String outStringa = '';
+
+  String outStringp = '';
   String _fileContents = '';
-  List<Map<String, dynamic>> actionlist = [];
+  List<Map<String, dynamic>> placelist = [];
 
   Future<void> loadAsset() async {
     String fileText = await rootBundle.loadString(
-      AppLocalizations.of(context)!.actionlisthelpfile,
+      AppLocalizations.of(context)!.placelisthelpfile,
     );
 
     setState(() {
@@ -53,10 +54,10 @@ class _ActionlistState extends State<Actionlist> {
     }
   }
 
-  Future<void> _refreshTaskList() async {
-    final data = await _crudservice.getAllActions();
+  Future<void> _refreshPlaceList() async {
+    final data = await _crudservice.getAllPlaces();
     setState(() {
-      actionlist = data;
+      placelist = data;
       _isLoading = false;
     });
   }
@@ -70,7 +71,7 @@ class _ActionlistState extends State<Actionlist> {
           padding: const EdgeInsets.all(8),
           child: Image.asset('assets/phloura_logo.jpg'),
         ),
-        title: Text(AppLocalizations.of(context)!.actionlistappbartitle),
+        title: Text(AppLocalizations.of(context)!.placelistappbartitle),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.question_mark),
@@ -85,7 +86,7 @@ class _ActionlistState extends State<Actionlist> {
                         textOut: _fileContents,
                         heading: AppLocalizations.of(
                           context,
-                        )!.actionlisthelpappbartitle,
+                        )!.placelisthelpappbartitle,
                       ),
                     ),
                   );
@@ -99,13 +100,13 @@ class _ActionlistState extends State<Actionlist> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
-              itemCount: actionlist.length,
+              itemCount: placelist.length,
               itemBuilder: (context, index) => Card(
                 color: const Color.fromARGB(255, 255, 254, 253),
                 margin: const EdgeInsets.all(5),
                 child: ListTile(
                   title: Text(
-                    actionlist[index][actionTextColumn],
+                    placelist[index][placeNameColumn],
                     textAlign: TextAlign.center,
                   ),
                   trailing: SizedBox(
@@ -115,13 +116,12 @@ class _ActionlistState extends State<Actionlist> {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () {
-                            globals.actionId =
-                                actionlist[index][actionIdColumn];
-                            globals.origin = 'ActionList';
+                            globals.placeId = placelist[index][placeIdColumn];
+                            globals.origin = 'PlaceList';
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ActionView(),
+                                builder: (context) => const PlaceView(),
                               ),
                             );
                           },
@@ -137,12 +137,11 @@ class _ActionlistState extends State<Actionlist> {
         children: [
           FloatingActionButton(
             onPressed: () {
-              globals.actionId = 0;
-              globals.origin = "TaskList";
-
+              globals.placeId = 0;
+              globals.origin = "PlaceList";
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const ActionView()),
+                MaterialPageRoute(builder: (context) => const PlaceView()),
               );
             },
             heroTag: 1,
@@ -151,17 +150,14 @@ class _ActionlistState extends State<Actionlist> {
           SizedBox(height: 10),
           FloatingActionButton(
             onPressed: () {
-              globals.origin = 'Tasklist';
-
+              globals.origin = 'Placelist';
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => Print(
-                    outlist: actionlist,
+                    outlist: placelist,
                     dateSpan: '',
-                    content: AppLocalizations.of(
-                      context,
-                    )!.actionlistappbartitle,
+                    content: AppLocalizations.of(context)!.placelistappbartitle,
                   ),
                 ),
               );

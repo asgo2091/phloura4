@@ -7,9 +7,6 @@ Future<bool> shopOldDialog(BuildContext context) {
     context: context,
     title: AppLocalizations.of(context)!.shopdialogappbartitle,
     content: AppLocalizations.of(context)!.shopdialogtext,
-    optionsBuilder: () => {
-      AppLocalizations.of(context)!.quitbutton: false,
-      AppLocalizations.of(context)!.yesbutton: true,
-    },
+    optionsBuilder: () => {AppLocalizations.of(context)!.yesbutton: true},
   ).then((value) => value ?? false);
 }

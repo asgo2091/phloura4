@@ -4,8 +4,8 @@ import 'package:phloura/constants.dart';
 import 'package:phloura/definitions/globals.dart' as globals;
 import 'package:phloura/crud_service.dart';
 import 'package:phloura/dialog/delete_dialog.dart';
-import 'package:phloura/view/place_list.dart';
-import 'package:phloura/view/textscreen.dart';
+import 'package:phloura/screens/place_list.dart';
+import 'package:phloura/screens/textscreen.dart';
 import 'package:phloura/l10n/app_localizations.dart';
 
 class PlaceView extends StatefulWidget {

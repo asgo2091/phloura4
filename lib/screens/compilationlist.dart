@@ -6,12 +6,12 @@ import 'package:phloura/definitions/globals.dart' as globals;
 import 'package:phloura/l10n/app_localizations.dart';
 import 'package:phloura/main.dart';
 import 'package:phloura/print.dart';
-import 'package:phloura/view/actionlist.dart';
-import 'package:phloura/view/compilation_design.dart';
-import 'package:phloura/view/note_list.dart';
-import 'package:phloura/view/place_list.dart';
-import 'package:phloura/view/textscreen.dart';
-import 'package:phloura/view/vaxt_list.dart';
+import 'package:phloura/screens/actionlist.dart';
+import 'package:phloura/screens/compilation_design.dart';
+import 'package:phloura/screens/note_list.dart';
+import 'package:phloura/screens/place_list.dart';
+import 'package:phloura/screens/textscreen.dart';
+import 'package:phloura/screens/vaxt_list.dart';
 
 class Compilationlist extends StatefulWidget {
   const Compilationlist({

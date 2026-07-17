@@ -4,19 +4,19 @@ import 'package:phloura/definitions/globals.dart' as globals;
 import 'package:flutter/material.dart';
 import 'package:phloura/crud_service.dart';
 import 'package:phloura/dialog/delete_dialog.dart';
-import 'package:phloura/dialog/shop_old_dialog.dart';
 import 'package:phloura/main.dart';
 import 'package:phloura/print.dart';
-//import 'package:phloura/shop.dart';
-import 'package:phloura/view/compilation_design.dart';
-import 'package:phloura/view/note_view.dart';
-import 'package:phloura/view/place_list.dart';
-import 'package:phloura/view/vaxt_list.dart';
-import 'package:phloura/view/actionlist.dart';
-import 'package:phloura/view/textscreen.dart';
+import 'package:phloura/screens/compilation_design.dart';
+import 'package:phloura/screens/note_view.dart';
+import 'package:phloura/screens/place_list.dart';
+import 'package:phloura/screens/shop.dart';
+import 'package:phloura/screens/vaxt_list.dart';
+import 'package:phloura/screens/actionlist.dart';
+import 'package:phloura/screens/textscreen.dart';
 import 'package:phloura/l10n/app_localizations.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:phloura/dialog/shop_old_dialog.dart';
 
 class Notelist extends StatefulWidget {
   const Notelist({super.key});
@@ -26,8 +26,8 @@ class Notelist extends StatefulWidget {
 }
 
 class _NotelistState extends State<Notelist> {
-  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
   late final CrudService _crudservice = CrudService();
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   @override
   initState() {
@@ -63,6 +63,57 @@ class _NotelistState extends State<Notelist> {
 
     if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       throw Exception('Could not launch $url');
+    }
+  }
+
+  Future<void> _checkPaid() async {
+    // globals.pro = true;
+    final answer = await secureStorage.read(key: 'pro');
+    //print(answer);
+    if (answer == 'true') {
+      globals.pro = true;
+    } else {
+      globals.pro = false;
+    }
+  }
+
+  Future<void> _checkAge() async {
+    if (globals.pro == false) {
+      var startDate = await secureStorage.read(key: 'startdate');
+      // print('Startdate');
+      //print(startDate);
+
+      if (startDate == null) {
+        secureStorage.write(key: 'startdate', value: DateTime.now().toString());
+        startDate = DateTime.now().toString();
+      } else {
+        DateTime firstDate = DateTime.parse(startDate);
+        DateTime dateTimeNow = DateTime.now();
+        //print('dateTimeNow');
+        // print(dateTimeNow);
+        int differenceInDays = dateTimeNow.difference(firstDate).inDays;
+        //differenceInDays = 101;
+        //print('diffdays');
+        //print(differenceInDays);
+
+        if (differenceInDays >= 100) {
+          // ignore: use_build_context_synchronously
+          final timeoutDialog = shopOldDialog(context);
+          if (await timeoutDialog) {
+            Navigator.push(
+              // ignore: use_build_context_synchronously
+              context,
+              MaterialPageRoute(builder: (context) => const ShopScreen()),
+            );
+          } else {
+            Navigator.push(
+              // ignore: use_build_context_synchronously
+              context,
+              MaterialPageRoute(builder: (context) => const Homepage()),
+            );
+          }
+        }
+      }
     }
   }
 
@@ -116,59 +167,10 @@ class _NotelistState extends State<Notelist> {
   }
 
   //*********************************************** */
-  Future<void> _checkPaid() async {
-    // globals.pro = true;
-    final answer = await secureStorage.read(key: 'pro');
-    //print(answer);
-    if (answer == 'true') {
-      globals.pro = true;
-    } else {
-      globals.pro = false;
-    }
-  }
-
-  Future<void> _checkAge() async {
-    if (globals.pro == false) {
-      var startDate = await secureStorage.read(key: 'startdate');
-      // print('Startdate');
-      // print(startDate);
-
-      if (startDate == null) {
-        secureStorage.write(key: 'startdate', value: DateTime.now().toString());
-        startDate = DateTime.now().toString();
-      } else {
-        DateTime firstDate = DateTime.parse(startDate);
-        DateTime dateTimeNow = DateTime.now();
-        //print('dateTimeNow');
-        // print(dateTimeNow);
-        int differenceInDays = dateTimeNow.difference(firstDate).inDays;
-        //differenceInDays = 101;
-        //print('diffdays');
-        //print(differenceInDays);
-
-        if (differenceInDays >= 100) {
-          // ignore: use_build_context_synchronously
-          final timeoutDialog = shopOldDialog(context);
-          if (await timeoutDialog) {
-            /* Navigator.push(
-              // ignore: use_build_context_synchronously
-              context,
-              MaterialPageRoute(builder: (context) => const ShopScreen()),
-            ); */
-          } else {
-            Navigator.push(
-              // ignore: use_build_context_synchronously
-              context,
-              MaterialPageRoute(builder: (context) => const Homepage()),
-            );
-          }
-        }
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    //print(globals.pro);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.yellow,
