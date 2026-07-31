@@ -5,9 +5,12 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:phloura/definitions/globals.dart' as globals;
 
 class IAPService {
   IAPService._();
+  final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
   static final IAPService instance = IAPService._();
 
@@ -35,11 +38,15 @@ class IAPService {
   bool get initialized => _initialized;
 
   Future<void> initialize() async {
+    final sw = Stopwatch()..start();
     if (_initialized) {
       return;
     }
 
+    debugPrint("initialize()");
+
     _available = await _iap.isAvailable();
+    debugPrint("isAvailable: ${sw.elapsedMilliseconds} ms");
 
     if (!_available) {
       throw Exception('Store unavailable');
@@ -56,10 +63,13 @@ class IAPService {
     );
 
     await _loadProducts();
+    debugPrint("_loadProducts: ${sw.elapsedMilliseconds} ms");
 
     await _loadPremiumStatus();
+    debugPrint("_loadPremiumStatus: ${sw.elapsedMilliseconds} ms");
 
     _initialized = true;
+    debugPrint("initialize finished: ${sw.elapsedMilliseconds} ms");
   }
 
   Future<void> _loadProducts() async {
@@ -151,9 +161,21 @@ class IAPService {
         case PurchaseStatus.error:
           _purchasePending = false;
 
-          debugPrint(purchase.error?.message ?? 'Unknown purchase error');
+          final message = purchase.error?.message ?? '';
+
+          debugPrint(message);
+
+          if (message.contains('itemAlreadyOwned')) {
+            await _iap.restorePurchases();
+          }
 
           break;
+        /*         case PurchaseStatus.error:
+          _purchasePending = false;
+
+          debugPrint(purchase.error?.message ?? 'Unknown purchase error');
+
+          break; */
 
         case PurchaseStatus.canceled:
           _purchasePending = false;
@@ -205,9 +227,12 @@ class IAPService {
       'productId': productId,
       'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
+
+    await secureStorage.write(key: 'pro', value: 'true');
+    globals.pro = true;
   }
 
-  Future<void> _lockPremium() async {
+  /*   Future<void> _lockPremium() async {
     final user = FirebaseAuth.instance.currentUser;
 
     if (user == null) {
@@ -220,5 +245,7 @@ class IAPService {
       'premium': false,
       'updatedAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
-  }
+     await secureStorage.write(key: 'pro', value: 'false');
+   globals.pro = false;
+  } */
 }

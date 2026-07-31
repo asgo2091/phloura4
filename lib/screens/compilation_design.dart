@@ -244,23 +244,21 @@ class _CompilationDesignState extends State<CompilationDesign> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.question_mark),
-            onPressed: () {
-              loadAsset();
-              Future.delayed(const Duration(milliseconds: 500), () {
-                if (context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TextScreen(
-                        textOut: _fileContents,
-                        heading: AppLocalizations.of(
-                          context,
-                        )!.compilationdesignhelpappbartitle,
-                      ),
-                    ),
-                  );
-                }
-              });
+            onPressed: () async {
+              await loadAsset();
+              if (!context.mounted) return;
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TextScreen(
+                    textOut: _fileContents,
+                    heading: AppLocalizations.of(
+                      context,
+                    )!.compilationdesignhelpappbartitle,
+                  ),
+                ),
+              );
             },
           ),
         ],

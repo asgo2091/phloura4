@@ -61,120 +61,118 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     //print(globals.pro);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.yellow,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              if (kIsWeb == true)
-                RichText(
-                  text: TextSpan(
-                    text: 'Error',
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 48,
-                    ),
-                  ),
-                ),
-              if (kIsWeb == true) //Check if webb device
-                RichText(
-                  text: TextSpan(
-                    text:
-                        'This app can only run on android devices such as phones and tablets.',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                    ),
-                  ),
-                ),
+
+    return Scaffold(
+      backgroundColor: Colors.yellow,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            if (kIsWeb == true)
               RichText(
                 text: TextSpan(
-                  text: 'Phloura',
+                  text: 'Error',
                   style: TextStyle(
-                    color: Colors.black26,
-                    fontStyle: FontStyle.italic,
+                    color: Colors.red,
                     fontWeight: FontWeight.bold,
-                    fontSize: 35,
+                    fontSize: 48,
                   ),
                 ),
               ),
-              _showLogo(),
-              const SizedBox(height: 5),
-              const Text('ver. 2.0.4'),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Notelist()),
-                  );
-                },
-                style: ButtonStyle(
-                  shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: const BorderSide(color: Colors.black),
-                    ),
+            if (kIsWeb == true) //Check if webb device
+              RichText(
+                text: TextSpan(
+                  text:
+                      'This app can only run on android devices such as phones and tablets.',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
                   ),
                 ),
-                child: Text(AppLocalizations.of(context)!.gobutton),
               ),
-              const SizedBox(height: 5),
-              TextButton(
-                onPressed: () {
-                  loadAsset();
-                  Future.delayed(const Duration(milliseconds: 500), () {
-                    if (context.mounted) {
-                      Navigator.push(
+            RichText(
+              text: TextSpan(
+                text: 'Phloura',
+                style: TextStyle(
+                  color: Colors.black26,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35,
+                ),
+              ),
+            ),
+            _showLogo(),
+            const SizedBox(height: 5),
+            const Text('ver. 2.0.5'),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Notelist()),
+                );
+              },
+              style: ButtonStyle(
+                shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: const BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
+              child: Text(AppLocalizations.of(context)!.gobutton),
+            ),
+            const SizedBox(height: 5),
+            TextButton(
+              onPressed: () {
+                loadAsset();
+                debugPrint('LoadAssets');
+                if (!context.mounted) return;
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => TextScreen(
+                      textOut: _fileContents,
+                      heading: AppLocalizations.of(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => TextScreen(
-                            textOut: _fileContents,
-                            heading: AppLocalizations.of(
-                              context,
-                            )!.appdesignappbartitle,
-                          ),
-                        ),
-                      );
-                    }
-                  });
-                },
-                style: ButtonStyle(
-                  shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: const BorderSide(color: Colors.black),
+                      )!.appdesignappbartitle,
                     ),
                   ),
-                ),
-                child: Text(AppLocalizations.of(context)!.appdesignbutton),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ShopScreen()),
-                  );
-                },
-                style: ButtonStyle(
-                  shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: const BorderSide(color: Colors.black),
-                    ),
+                );
+              },
+              style: ButtonStyle(
+                shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: const BorderSide(color: Colors.black),
                   ),
                 ),
-                child: Text(AppLocalizations.of(context)!.shopbutton),
               ),
-            ],
-          ),
+              child: Text(AppLocalizations.of(context)!.appdesignbutton),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ShopScreen()),
+                );
+              },
+              style: ButtonStyle(
+                shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    side: const BorderSide(color: Colors.black),
+                  ),
+                ),
+              ),
+              child: Text(AppLocalizations.of(context)!.shopbutton),
+            ),
+          ],
         ),
       ),
     );
+    //);
   }
 
   Widget _showLogo() {

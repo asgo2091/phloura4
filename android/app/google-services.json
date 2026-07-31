@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746110395925",
+    "project_id": "phloura-7f1a1",
+    "storage_bucket": "phloura-7f1a1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746110395925:android:1986b392013afe86f2101c",
+        "android_client_info": {
+          "package_name": "se.asgoit.phloura"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB64Sjv2as3mGsz3b2Lr-ketsDqQGHGUfk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

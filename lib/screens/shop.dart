@@ -5,6 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:phloura/definitions/globals.dart' as globals;
 import 'package:phloura/l10n/app_localizations.dart';
 import 'package:phloura/screens/textscreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:phloura/firebase_options.dart';
 import 'package:phloura/services/iap_service.dart';
 
 class ShopScreen extends StatefulWidget {
@@ -30,9 +32,17 @@ class _ShopScreenState extends State<ShopScreen> {
   }
 
   @override
-  initState() {
-    IAPService.instance.initialize();
+  void initState() {
     super.initState();
+    _initialize();
+  }
+
+  Future<void> _initialize() async {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    await IAPService.instance.initialize();
   }
 
   @override
@@ -50,23 +60,19 @@ class _ShopScreenState extends State<ShopScreen> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.question_mark),
-            onPressed: () {
-              loadAsset();
-              Future.delayed(const Duration(milliseconds: 500), () {
-                if (context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TextScreen(
-                        textOut: _fileContents,
-                        heading: AppLocalizations.of(
-                          context,
-                        )!.buyhelpappbartitle,
-                      ),
-                    ),
-                  );
-                }
-              });
+            onPressed: () async {
+              await loadAsset();
+              if (!context.mounted) return;
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TextScreen(
+                    textOut: _fileContents,
+                    heading: AppLocalizations.of(context)!.buyhelpappbartitle,
+                  ),
+                ),
+              );
             },
           ),
         ],
@@ -130,15 +136,32 @@ class _ShopScreenState extends State<ShopScreen> {
       }
       return;
     }
-
     try {
+      await IAPService.instance.buyPremium();
+    } catch (error) {
+      if (error.toString().contains('itemAlreadyOwned')) {
+        await IAPService.instance.restorePurchases();
+      } else {
+        if (context.mounted) {
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: $error'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    }
+
+    /*     try {
       await IAPService.instance.buyPremium();
 
       // Don't show success here.
       // The purchase may still be pending.
     } catch (error) {
       if (error.toString().contains('itemAlreadyOwned')) {
-        _addNewItem('pro', 'true');
+        await secureStorage.write(key: 'pro', value: 'true');
         globals.pro = true;
         //Closes dialog
       } else {
@@ -152,60 +175,6 @@ class _ShopScreenState extends State<ShopScreen> {
           );
         }
       }
-    }
-  }
-
-  /*  Future<void> proceedWithIAP(String packageID) async {
-    if (await _iapService.isIAPAvailable()) {
-      _iapService.buyProduct(
-        packageID.toString(),
-        (purchase) {
-          _addNewItem('pro', 'true');
-          globals.pro = true;
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Top-up of \$$packageID  was successful!'),
-              backgroundColor: Colors.green,
-            ),
-          );
-          // _next(selectedAmountAsDouble);
-        },
-        (error) {
-          // Handle error
-          if (error == 'BillingResponse.itemAlreadyOwned') {
-            _addNewItem('pro', 'true');
-            globals.pro = true;
-            Future.delayed(const Duration(milliseconds: 500));
-
-            if (context.mounted) {
-              Navigator.of(context).pop();
-            }
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Error: $error'),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        },
-      );
-    } else {
-      if (context.mounted) {
-        // ignore: use_build_context_synchronously
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Error: In App Purchase not available on this device',
-            ),
-            backgroundColor: Colors.red,
-          ),
-        );
-      }
-    }
-  } */
-
-  Future<void> _addNewItem(String key, String value) async {
-    await secureStorage.write(key: key, value: value);
+    } */
   }
 }
