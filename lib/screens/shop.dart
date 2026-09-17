@@ -2,10 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:phloura/definitions/globals.dart' as globals;
+//import 'package:phloura/definitions/globals.dart' as globals;
 import 'package:phloura/l10n/app_localizations.dart';
 import 'package:phloura/screens/textscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:phloura/firebase_options.dart';
 import 'package:phloura/services/iap_service.dart';
 
@@ -41,8 +42,30 @@ class _ShopScreenState extends State<ShopScreen> {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
 
-    await IAPService.instance.initialize();
+      if (user == null) {
+        final credential = await FirebaseAuth.instance.signInAnonymously();
+        user = credential.user;
+      }
+
+      if (user == null) {
+        throw Exception('Firebase Auth user is null');
+      }
+
+      debugPrint('Firebase Auth UID: ${user.uid}');
+      debugPrint('Firease Auth anonymus: ${user.isAnonymous}');
+
+      await IAPService.instance.saveUserData();
+
+      await IAPService.instance.initialize();
+    } on FirebaseAuthException catch (e) {
+      debugPrint('Anonymus sign-in failed: ${e.code} ${e.message}');
+    } catch (e, stackTrace) {
+      debugPrint('_initilaze ERROR: $e');
+      debugPrint('$stackTrace');
+    }
   }
 
   @override
@@ -117,6 +140,31 @@ class _ShopScreenState extends State<ShopScreen> {
                 child: Text(AppLocalizations.of(context)!.quitbutton),
                 // style: TextStyle(color: Colors.black),
               ),
+
+              /*               TextButton(
+                onPressed: () async {
+                  final token =
+                      'fbddnoankmmmblnelhldeeeh.AO-J1OwIw-urK1gX32HmiCILZQ87KqSdnve-v5ZfqsXQvnrsaBNkyczMTzkoJS3FrfJ4aOQq-c_HSXULPgRlJwGLqb4V1mNCGA';
+
+                  final success = await IAPService.instance
+                      .consumeExistingPurchase(token);
+
+                  debugPrint('Consumed: $success');
+                  // Navigator.of(context).pop();
+                },
+                style: ButtonStyle(
+                  shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                      side: const BorderSide(color: Colors.black),
+                    ),
+                  ),
+                ),
+                child: const Text(
+                  'Clean',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ), */
             ],
           ),
         ],
@@ -153,28 +201,5 @@ class _ShopScreenState extends State<ShopScreen> {
         }
       }
     }
-
-    /*     try {
-      await IAPService.instance.buyPremium();
-
-      // Don't show success here.
-      // The purchase may still be pending.
-    } catch (error) {
-      if (error.toString().contains('itemAlreadyOwned')) {
-        await secureStorage.write(key: 'pro', value: 'true');
-        globals.pro = true;
-        //Closes dialog
-      } else {
-        if (context.mounted) {
-          // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: $error'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      }
-    } */
   }
 }

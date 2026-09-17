@@ -56,13 +56,12 @@ class DefaultFirebaseOptions {
     projectId: 'phloura-7f1a1',
     storageBucket: 'phloura-7f1a1.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyChCFnNMjkJQ91G0U3YLy0b6SViMiSVq38',
     appId: '1:746110395925:ios:b7f889a81f820eb2f2101c',
     messagingSenderId: '746110395925',
     projectId: 'phloura-7f1a1',
     storageBucket: 'phloura-7f1a1.firebasestorage.app',
-    iosBundleId: 'se.asgoit.phloura',
+    iosBundleId: 'com.example.phloura',
   );
 }

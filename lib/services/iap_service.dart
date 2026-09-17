@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -8,7 +9,9 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:phloura/definitions/globals.dart' as globals;
 
-class IAPService {
+//import 'package:in_app_purchase_android/billing_client_wrappers.dart';
+
+class IAPService extends ChangeNotifier {
   IAPService._();
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
@@ -26,6 +29,8 @@ class IAPService {
   bool _initialized = false;
   bool _premium = false;
   bool _purchasePending = false;
+  bool _disposed = false;
+  Future<void>? _initializationFuture;
 
   ProductDetails? get product => _product;
 
@@ -38,10 +43,23 @@ class IAPService {
   bool get initialized => _initialized;
 
   Future<void> initialize() async {
-    final sw = Stopwatch()..start();
+    _checkDisposed();
+
+    // Return existing initialization if already in progress
+    if (_initializationFuture != null) {
+      return _initializationFuture!;
+    }
+
     if (_initialized) {
       return;
     }
+
+    _initializationFuture = _performInitialization();
+    return _initializationFuture!;
+  }
+
+  Future<void> _performInitialization() async {
+    final sw = Stopwatch()..start();
 
     debugPrint("initialize()");
 
@@ -70,6 +88,41 @@ class IAPService {
 
     _initialized = true;
     debugPrint("initialize finished: ${sw.elapsedMilliseconds} ms");
+    notifyListeners();
+  }
+
+  Future<void> saveUserData() async {
+    _checkDisposed();
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) {
+      debugPrint('saveUserData: no authenticated user');
+      return;
+    }
+
+    final platform = Platform.isAndroid
+        ? 'android'
+        : Platform.isIOS
+        ? 'ios'
+        : 'other';
+
+    debugPrint('=== SAVE USER DATA ===');
+    debugPrint('uid: ${user.uid}');
+    debugPrint('platform: $platform');
+
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+        'createdAt': FieldValue.serverTimestamp(),
+        'platform': platform,
+      }, SetOptions(merge: true));
+
+      debugPrint('saveUserData: Firestore write OK');
+    } catch (e, stackTrace) {
+      debugPrint('=== SAVE USER DATA FAILED ===');
+      debugPrint('ERROR: $e');
+      debugPrint('STACK: $stackTrace');
+    }
   }
 
   Future<void> _loadProducts() async {
@@ -87,18 +140,42 @@ class IAPService {
   }
 
   Future<void> buyPremium() async {
+    _checkDisposed();
     if (_product == null) {
       throw Exception('Product not loaded');
     }
 
     final purchaseParam = PurchaseParam(productDetails: _product!);
+    debugPrint('=========buyPremium===============');
+    debugPrint('purchaseParam: ${purchaseParam}');
+    debugPrint('=========buyPremium===============');
 
     _purchasePending = true;
+    notifyListeners();
 
-    await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+    try {
+      debugPrint('=== START BUY ===');
+      debugPrint('productId: ${purchaseParam.productDetails.id}');
+
+      final result = await _iap.buyNonConsumable(purchaseParam: purchaseParam);
+
+      debugPrint('buyNonConsumable result: $result');
+    } catch (e, stack) {
+      debugPrint('=== BUY ERROR ===');
+      debugPrint('ERROR: $e');
+      debugPrint('STACK: $stack');
+      debugPrint('=== BUY ERROR ===');
+    }
+
+    await _iap.buyNonConsumable(
+      purchaseParam: purchaseParam,
+    ); //Skickas till Google play
+
+    debugPrint('============END BUY=========');
   }
 
   Future<void> restorePurchases() async {
+    _checkDisposed();
     await _iap.restorePurchases();
   }
 
@@ -122,22 +199,62 @@ class IAPService {
 
     final data = doc.data();
 
+    final wasChanged = _premium != (data?['premium'] == true);
     _premium = data?['premium'] == true;
+
+    if (wasChanged) {
+      notifyListeners();
+    }
   }
 
   Future<void> refreshPremiumStatus() async {
+    _checkDisposed();
     await _loadPremiumStatus();
   }
 
+  @override
   Future<void> dispose() async {
+    if (_disposed) {
+      return;
+    }
+
+    _disposed = true;
     await _subscription?.cancel();
+    super.dispose();
+  }
+
+  void _checkDisposed() {
+    if (_disposed) {
+      throw StateError('IAPService has been disposed');
+    }
   }
 
   Future<void> _onPurchaseUpdate(List<PurchaseDetails> purchases) async {
+    if (_disposed) {
+      return;
+    }
+
     for (final purchase in purchases) {
+      debugPrint('==============PURCHASE STREAM UPDATE==================');
+      debugPrint('status: ${purchase.status}');
+      debugPrint('productID: ${purchase.productID}');
+      debugPrint('purchaseID: ${purchase.purchaseID}');
+      debugPrint(
+        'serverVerificationData: '
+        '${purchase.verificationData.serverVerificationData}',
+      );
+      debugPrint(
+        'pendingCompletePurchase: '
+        '${purchase.pendingCompletePurchase}',
+      );
+    }
+
+    for (final purchase in purchases) {
+      debugPrint("_onPurchaseUpdate: ${purchase.status}");
       switch (purchase.status) {
         case PurchaseStatus.pending:
           _purchasePending = true;
+          notifyListeners();
           break;
 
         case PurchaseStatus.purchased:
@@ -160,6 +277,7 @@ class IAPService {
 
         case PurchaseStatus.error:
           _purchasePending = false;
+          notifyListeners();
 
           final message = purchase.error?.message ?? '';
 
@@ -170,66 +288,85 @@ class IAPService {
           }
 
           break;
-        /*         case PurchaseStatus.error:
+        /*              case PurchaseStatus.error:
           _purchasePending = false;
 
           debugPrint(purchase.error?.message ?? 'Unknown purchase error');
 
-          break; */
+          break;  */
 
         case PurchaseStatus.canceled:
           _purchasePending = false;
+          notifyListeners();
           break;
       }
     }
+    debugPrint('==============PURCHASE STREAM UPDATE END==================');
   }
 
   Future<bool> _verifyPurchase(PurchaseDetails purchase) async {
     final user = FirebaseAuth.instance.currentUser;
+    debugPrint("=== VERIFY PURCHASE START ===");
+    debugPrint("user: $user");
+    debugPrint("uid: ${user?.uid}");
+    debugPrint("productId: ${purchase.productID}");
+    debugPrint("purchaseId: ${purchase.purchaseID}");
+    debugPrint("source: ${purchase.verificationData.source}");
+    debugPrint(
+      "serverVerificationData: "
+      "${purchase.verificationData.serverVerificationData}",
+    );
 
     if (user == null) {
+      debugPrint("VERIFY FAILED: user == null");
       return false;
     }
 
     try {
-      final callable = FirebaseFunctions.instance.httpsCallable(
-        'verifyPurchase',
-      );
+      final functions = FirebaseFunctions.instanceFor(region: 'europe-west1');
+
+      final callable = functions.httpsCallable('verifyPurchase');
+
+      debugPrint("Calling Firebase verifyPurchase...");
+      debugPrint('=== FIRESTORE PREMIUM WRITE ===');
 
       final result = await callable.call({
-        'uid': user.uid,
         'productId': purchase.productID,
         'purchaseId': purchase.purchaseID,
         'verificationData': purchase.verificationData.serverVerificationData,
         'source': purchase.verificationData.source,
       });
 
+      debugPrint("Firebase result: ${result.data}");
+
       final data = Map<String, dynamic>.from(result.data);
 
-      return data['valid'] == true;
-    } catch (e) {
-      debugPrint(e.toString());
+      debugPrint("valid = ${data['success']}");
+      debugPrint("valid type = ${data['success'].runtimeType}");
+
+      final valid = data['success'] == true;
+      debugPrint('=== FIRESTORE PREMIUM WRITE END ===');
+
+      debugPrint("VERIFY RESULT = $valid");
+      debugPrint("=== VERIFY PURCHASE END ===");
+      return valid;
+    } catch (e, stackTrace) {
+      debugPrint("_verifyPurchase ERROR: $e");
+      debugPrint("_verifyPurchase STACK: $stackTrace");
+      debugPrint("=== VERIFY PURCHASE FAILED ===");
       return false;
     }
   }
 
   Future<void> _unlockPremium() async {
-    final user = FirebaseAuth.instance.currentUser;
-
-    if (user == null) {
-      return;
-    }
+    _checkDisposed();
 
     _premium = true;
-
-    await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-      'premium': true,
-      'productId': productId,
-      'updatedAt': FieldValue.serverTimestamp(),
-    }, SetOptions(merge: true));
+    globals.pro = true;
 
     await secureStorage.write(key: 'pro', value: 'true');
-    globals.pro = true;
+
+    notifyListeners();
   }
 
   /*   Future<void> _lockPremium() async {
@@ -247,5 +384,49 @@ class IAPService {
     }, SetOptions(merge: true));
      await secureStorage.write(key: 'pro', value: 'false');
    globals.pro = false;
+  } */
+
+  ///********************************************************* */
+
+  /*  Future<bool> consumeExistingPurchase(String purchaseToken) async {
+    final billingClient = BillingClient((purchasesResult) {
+      // Vi startar inte något nytt köp här.
+      // Callbacken krävs bara av BillingClient-konstruktorn.
+    }, null);
+
+    try {
+      debugPrint('token = ${purchaseToken}');
+      // Anslut till Google Play Billing.
+      final connectionResult = await billingClient.startConnection(
+        onBillingServiceDisconnected: () {
+          debugPrint('BillingClient disconnected');
+        },
+      );
+
+      debugPrint(
+        'Billing connection: '
+        '${connectionResult.responseCode} '
+        '${connectionResult.debugMessage}',
+      );
+
+      if (connectionResult.responseCode != BillingResponse.ok) {
+        return false;
+      }
+
+      // Konsumera det befintliga köpet.
+      final consumeResult = await billingClient.consumeAsync(purchaseToken);
+
+      debugPrint(
+        'Consume result: '
+        '${consumeResult.responseCode} '
+        '${consumeResult.debugMessage}',
+      );
+
+      return consumeResult.responseCode == BillingResponse.ok;
+    } catch (e, stackTrace) {
+      debugPrint('consumeExistingPurchase error: $e');
+      debugPrint(stackTrace as String?);
+      return false;
+    }
   } */
 }

@@ -17,16 +17,14 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "se.asgoit.phloura"
-
-    compileSdk = flutter.compileSdkVersion
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     defaultConfig {
         applicationId = "se.asgoit.phloura"
 
         minSdk = 29
-        targetSdk = 35
-
+        targetSdk = 37
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
